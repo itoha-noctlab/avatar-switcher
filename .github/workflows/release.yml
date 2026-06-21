@@ -1,0 +1,99 @@
+name: Build And Release VPM Package
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    env:
+      TAG_PREFIX: v
+      LISTING_REPO: ${{ vars.VPM_LISTING_REPO != '' && vars.VPM_LISTING_REPO || format('{0}/vpm', github.repository_owner) }}
+      LISTING_REPO_TOKEN: ${{ secrets.VPM_LISTING_REPO_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build VPM zip
+        id: build
+        shell: pwsh
+        run: |
+          $pkg = Get-Content -Path "package.json" -Raw | ConvertFrom-Json
+          $name = [string]$pkg.name
+          $ver = [string]$pkg.version
+          if ([string]::IsNullOrWhiteSpace($name) -or [string]::IsNullOrWhiteSpace($ver)) {
+            throw "package.json must include non-empty name and version"
+          }
+
+          $zipName = "$name-$ver.zip"
+          $tagName = "$env:TAG_PREFIX$ver"
+          $releaseUrl = "https://github.com/${{ github.repository_owner }}/${{ github.event.repository.name }}/releases/download/$tagName/$zipName"
+
+          $pkg.url = $releaseUrl
+          $pkg | ConvertTo-Json -Depth 100 | Set-Content -Path "package.json" -Encoding UTF8
+
+          New-Item -ItemType Directory -Force -Path "dist" | Out-Null
+          New-Item -ItemType Directory -Force -Path "dist/_pack_tmp" | Out-Null
+
+          $items = @("package.json", "README.md", "LICENSE.txt", "CHANGELOG.md", "Editor", "Editor.meta")
+          foreach ($item in $items) {
+            if (Test-Path $item) {
+              Copy-Item -Path $item -Destination "dist/_pack_tmp" -Recurse -Force
+            }
+          }
+
+          $zipPath = "dist/$zipName"
+          if (Test-Path $zipPath) {
+            Remove-Item -Force $zipPath
+          }
+
+          Compress-Archive -Path "dist/_pack_tmp/*" -DestinationPath $zipPath -Force
+          Remove-Item -Recurse -Force "dist/_pack_tmp"
+
+          $sha = (Get-FileHash -Path $zipPath -Algorithm SHA256).Hash.ToLowerInvariant()
+          $shaPath = "$zipPath.sha256"
+          Set-Content -Path $shaPath -Value $sha -Encoding ASCII
+
+          "package_name=$name" >> $env:GITHUB_OUTPUT
+          "package_version=$ver" >> $env:GITHUB_OUTPUT
+          "zip_path=$zipPath" >> $env:GITHUB_OUTPUT
+          "sha_path=$shaPath" >> $env:GITHUB_OUTPUT
+          "sha256=$sha" >> $env:GITHUB_OUTPUT
+
+      - name: Print build summary
+        shell: pwsh
+        run: |
+          Write-Host "Package: ${{ steps.build.outputs.package_name }}"
+          Write-Host "Version: ${{ steps.build.outputs.package_version }}"
+          Write-Host "SHA256 : ${{ steps.build.outputs.sha256 }}"
+
+      - name: Upload release asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ${{ steps.build.outputs.zip_path }}
+            ${{ steps.build.outputs.sha_path }}
+          fail_on_unmatched_files: true
+          generate_release_notes: true
+
+      - name: Dispatch update to listing repo
+        if: ${{ env.LISTING_REPO_TOKEN != '' }}
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ env.LISTING_REPO_TOKEN }}
+          repository: ${{ env.LISTING_REPO }}
+          event-type: package_released
+          client-payload: >-
+            {
+              "package_manifest_url": "https://raw.githubusercontent.com/${{ github.repository_owner }}/${{ github.event.repository.name }}/${{ github.ref_name }}/package.json",
+              "zip_sha256": "${{ steps.build.outputs.sha256 }}",
+              "source_repository": "${{ github.repository }}",
+              "source_tag": "${{ github.ref_name }}"
+            }

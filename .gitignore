@@ -1,0 +1,6 @@
+dist/
+*.csproj
+*.sln
+.vs/
+/*.meta
+/img/*.meta
