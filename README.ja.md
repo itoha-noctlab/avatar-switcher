@@ -25,13 +25,13 @@
 2. 一覧に表示されたアバターの行をクリックして GameObject のアクティブ状態を切り替えます。
 - `Ctrl` や `Shift` を押しながらクリックすることで、複数のアバターを同時に選択状態にすることもできます。
 
-![main](img/m1.webp)
+![m1](https://raw.githubusercontent.com/itoha-noctlab/avatar-switcher/refs/heads/master/img/m1.webp)
 
 ### Hierarchy のアクティブ状態切り替え機能
 
 1. Hierarchy 上の GameObject アイコンをクリックすることで、その GameObject のアクティブ状態を切り替えができます。
 
-![main](img/m2.webp)
+![m2](https://raw.githubusercontent.com/itoha-noctlab/avatar-switcher/refs/heads/master/img/m2.webp)
 
 ## 【仕様】
 

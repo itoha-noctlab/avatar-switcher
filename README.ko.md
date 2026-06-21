@@ -25,13 +25,13 @@
 2. 목록에 표시된 아바타 행을 클릭하여 GameObject의 활성 상태를 전환합니다.
 3. `Ctrl`이나 `Shift`를 누른 채 클릭하면 여러 아바타를 동시에 선택할 수도 있습니다.
 
-![main](img/m1.webp)
+![m1](https://raw.githubusercontent.com/itoha-noctlab/avatar-switcher/refs/heads/master/img/m1.webp)
 
 ### Hierarchy 활성 상태 전환 기능
 
 1. Hierarchy에서 GameObject 아이콘 영역을 클릭하면 해당 GameObject의 활성 상태를 전환할 수 있습니다.
 
-![main](img/m2.webp)
+![m2](https://raw.githubusercontent.com/itoha-noctlab/avatar-switcher/refs/heads/master/img/m2.webp)
 
 ## 【동작】
 

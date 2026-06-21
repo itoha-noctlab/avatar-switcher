@@ -25,13 +25,13 @@
 2. 点击列表中的头像行，即可切换对应 GameObject 的激活状态。
 3. 按住 `Ctrl` 或 `Shift` 再点击，可以同时选择多个头像。
 
-![main](img/m1.webp)
+![m1](https://raw.githubusercontent.com/itoha-noctlab/avatar-switcher/refs/heads/master/img/m1.webp)
 
 ### Hierarchy 激活状态切换功能
 
 1. 点击 Hierarchy 中 GameObject 行最左侧的图标区域，即可切换该 GameObject 的激活状态。
 
-![main](img/m2.webp)
+![m2](https://raw.githubusercontent.com/itoha-noctlab/avatar-switcher/refs/heads/master/img/m2.webp)
 
 ## 【行为说明】
 

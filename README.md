@@ -25,13 +25,13 @@
 2. Click an avatar row in the list to toggle the active state of its GameObject.
 3. Hold `Ctrl` or `Shift` while clicking to select multiple avatars at once.
 
-![main](img/m1.webp)
+![m1](https://raw.githubusercontent.com/itoha-noctlab/avatar-switcher/refs/heads/master/img/m1.webp)
 
 ### Hierarchy Active Toggle
 
 1. Click the GameObject icon area on the left edge of a Hierarchy row to toggle that GameObject's active state.
 
-![main](img/m2.webp)
+![m2](https://raw.githubusercontent.com/itoha-noctlab/avatar-switcher/refs/heads/master/img/m2.webp)
 
 ## 【Behavior】
 
