@@ -46,12 +46,17 @@
   - "선택 시 Hierarchy에서 GameObject를 강조 표시"를 활성화하면 아바타 목록의 레이블 클릭 시 Hierarchy에서 대상이 강조 표시됩니다.
   - `Alt`+클릭으로 해당 설정의 반대 동작을 수행합니다.
 
+- 창에서 마우스 오른쪽 버튼을 클릭하면 컨텍스트 메뉴를 열 수 있습니다.
+  - 컨텍스트 메뉴에는 "설정", "매뉴얼", "버그 신고 / 문의"가 있습니다.
+  - "매뉴얼"은 https://noctlab.com/docs/avatar-switcher 를 엽니다.
+  - "버그 신고 / 문의"는 https://noctlab.com/contact?t=tool&tool=Avatar+Switcher 를 엽니다.
+
 - Hierarchy의 GameObject 행 왼쪽 끝 아이콘 영역을 클릭하면 해당 GameObject의 활성 상태를 전환합니다.
   - Hierarchy에서 여러 오브젝트를 선택한 상태로 그중 하나를 클릭하면, 선택된 모든 GameObject의 활성 상태를 함께 전환합니다.
 
 ## 【라이선스】
 
-- 이 패키지는 MIT License로 제공됩니다. 자세한 내용은 [LICENSE](https://github.com/itoha-noctlab/avatar-switcher/blob/main/LICENSE.txt)를 참조하세요.
+- 이 패키지는 MIT License로 제공됩니다. 자세한 내용은 [LICENSE](https://github.com/itoha-noctlab/avatar-switcher/blob/master/LICENSE.txt)를 참조하세요.
 
 ## 【문의】
 

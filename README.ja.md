@@ -46,12 +46,16 @@
   - 「選択時に Hierarchy 上でゲームオブジェクトを強調表示」を有効にすると、アバター一覧のラベルクリック時に Hierarchy 上の対象を強調表示します。
   - `Alt` + クリックで、選択したときに強調表示の設定とは逆の動作をします。
 
+- ウインドウの右クリックメニューから「マニュアル」「不具合報告・お問い合わせ」も開けます。
+  - 「マニュアル」は https://noctlab.com/docs/avatar-switcher を開きます。
+  - 「不具合報告・お問い合わせ」は https://noctlab.com/contact?t=tool&tool=Avatar+Switcher を開きます。
+
 - Hierarchy 上の GameObject 行の左端アイコン部分をクリックして、その GameObject のアクティブ状態を切り替えます。
   - Hierarchy で複数選択中のオブジェクトをクリックした場合、選択中のすべての GameObject のアクティブ状態を切り替えます。
 
 ## 【ライセンス】
 
-- このパッケージは MIT License で提供されます。詳細は [LICENSE](https://github.com/itoha-noctlab/avatar-switcher/blob/main/LICENSE.txt) を参照してください。
+- このパッケージは MIT License で提供されます。詳細は [LICENSE](https://github.com/itoha-noctlab/avatar-switcher/blob/master/LICENSE.txt) を参照してください。
 
 ## 【お問い合わせ】
 

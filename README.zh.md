@@ -46,12 +46,17 @@
   - 启用“选中时在 Hierarchy 中高亮显示 GameObject”后，点击头像列表标签时会在 Hierarchy 中高亮目标对象。
   - `Alt`+点击会执行与该设置相反的行为。
 
+- 在窗口任意位置右键，可以打开上下文菜单。
+  - 上下文菜单包含“设置”、“手册”和“错误报告 / 联系”。
+  - “手册”会打开 https://noctlab.com/docs/avatar-switcher 。
+  - “错误报告 / 联系”会打开 https://noctlab.com/contact?t=tool&tool=Avatar+Switcher 。
+
 - 点击 Hierarchy 中 GameObject 行最左侧的图标区域，可切换该 GameObject 的激活状态。
   - 当 Hierarchy 中已多选对象时，点击其中一个会同时切换所有已选 GameObject 的激活状态。
 
 ## 【许可证】
 
-- 本软件包采用 MIT License。详情请参阅 [LICENSE](https://github.com/itoha-noctlab/avatar-switcher/blob/main/LICENSE.txt)。
+- 本软件包采用 MIT License。详情请参阅 [LICENSE](https://github.com/itoha-noctlab/avatar-switcher/blob/master/LICENSE.txt)。
 
 ## 【联系方式】
 

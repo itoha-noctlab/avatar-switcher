@@ -20,6 +20,20 @@ namespace AKATSUKIYA.AvatarSwitcher.Editor
                 zh: "设置"
             );
 
+            public static readonly LocalizedString ManualMenuLabel = new(
+                en: "Manual",
+                ja: "マニュアル",
+                ko: "매뉴얼",
+                zh: "手册"
+            );
+
+            public static readonly LocalizedString ContactMenuLabel = new(
+                en: "Bug Report / Contact",
+                ja: "不具合報告・お問い合わせ",
+                ko: "버그 신고 / 문의",
+                zh: "错误报告 / 联系"
+            );
+
             public static readonly LocalizedString EmptyStateMessage = new(
                 en: "There are no GameObjects with VRC Avatar Descriptor in the Hierarchy.",
                 ja: "ヒエラルキー上に VRC Avatar Descriptor が設定された GameObject はありません。",

@@ -46,12 +46,17 @@
   - Enabling "Highlight GameObject in the Hierarchy when selected" makes label clicks in the avatar list highlight the target in the Hierarchy.
   - `Alt`+click inverts that setting.
 
+- Right-click anywhere in the window to open the context menu.
+  - The context menu contains "Settings", "Manual", and "Bug Report / Contact".
+  - "Manual" opens https://noctlab.com/docs/avatar-switcher.
+  - "Bug Report / Contact" opens https://noctlab.com/contact?t=tool&tool=Avatar+Switcher.
+
 - Click the left-edge icon area of a GameObject row in the Hierarchy to toggle that GameObject's active state.
   - If multiple objects are selected in the Hierarchy, clicking one of them toggles the active state of all selected GameObjects.
 
 ## 【License】
 
-- This package is provided under the MIT License. See [LICENSE](https://github.com/itoha-noctlab/avatar-switcher/blob/main/LICENSE.txt) for details.
+- This package is provided under the MIT License. See [LICENSE](https://github.com/itoha-noctlab/avatar-switcher/blob/master/LICENSE.txt) for details.
 
 ## 【Contact】
 

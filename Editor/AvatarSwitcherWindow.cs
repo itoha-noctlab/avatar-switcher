@@ -15,8 +15,12 @@ namespace AKATSUKIYA.AvatarSwitcher.Editor
         private const string MenuPath = "Tools/AKATSUKIYA/Avatar Switcher";
         private const string MenuPathWithHotkey = MenuPath + " #a";
         private const string WindowIconFileName = "icon.png";
+        private const string ManualUrl = "https://noctlab.com/docs/avatar-switcher";
+        private const string ContactUrl = "https://noctlab.com/contact?t=tool&tool=Avatar+Switcher";
         private static string WindowTitle => Localized.UI.WindowTitle;
         private static string SettingsMenuLabel => Localized.UI.SettingsMenuLabel;
+        private static string ManualMenuLabel => Localized.UI.ManualMenuLabel;
+        private static string ContactMenuLabel => Localized.UI.ContactMenuLabel;
         private static string EmptyStateMessage => Localized.UI.EmptyStateMessage;
         private static string SettingsWindowTitle => Localized.UI.SettingsWindowTitle;
         private static string HierarchyHighlightLabel => Localized.UI.HierarchyHighlightLabel;
@@ -237,8 +241,20 @@ namespace AKATSUKIYA.AvatarSwitcher.Editor
 
             var menu = new GenericMenu();
             menu.AddItem(new GUIContent(SettingsMenuLabel), false, AvatarSwitcherSettingsWindow.Open);
+            menu.AddItem(new GUIContent(ManualMenuLabel), false, OpenManual);
+            menu.AddItem(new GUIContent(ContactMenuLabel), false, OpenContact);
             menu.ShowAsContext();
             Event.current.Use();
+        }
+
+        private static void OpenManual()
+        {
+            Application.OpenURL(ManualUrl);
+        }
+
+        private static void OpenContact()
+        {
+            Application.OpenURL(ContactUrl);
         }
 
         private void DrawAvatarRow(AvatarEntry avatar)
