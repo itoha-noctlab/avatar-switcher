@@ -85,6 +85,7 @@ jobs:
 
       - name: Dispatch update to listing repo
         if: ${{ env.LISTING_REPO_TOKEN != '' }}
+        continue-on-error: true
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ env.LISTING_REPO_TOKEN }}
