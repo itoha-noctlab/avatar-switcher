@@ -33,6 +33,7 @@ namespace AKATSUKIYA.AvatarSwitcher.Editor
         private const float InitialWindowPaddingY = 24f;
         private const float MinimumInitialWindowWidth = 320f;
         private const float MinimumInitialWindowHeight = 150f;
+        private const float MaximumInitialWindowHeight = 600f;
         private const double RefreshDelaySeconds = 0.12d;
         private const float PathLabelMaxWidthRatio = 0.55f;
 
@@ -66,7 +67,7 @@ namespace AKATSUKIYA.AvatarSwitcher.Editor
 
             var window = GetWindow<AvatarSwitcherWindow>();
             var initialSize = window.GetInitialWindowSize();
-            window.minSize = initialSize;
+            window.minSize = new Vector2(initialSize.x, MinimumInitialWindowHeight);
             window.position = window.GetInitialWindowRect(initialSize);
             window.UpdateTitleContent();
             window.Show();
@@ -74,7 +75,7 @@ namespace AKATSUKIYA.AvatarSwitcher.Editor
 
         private void OnEnable()
         {
-            maxSize = new Vector2(600, 600);
+            maxSize = new Vector2(600, MaximumInitialWindowHeight);
             UpdateTitleContent();
             EditorApplication.hierarchyChanged += RequestRefresh;
             EditorApplication.update += RefreshIfReady;
@@ -136,6 +137,7 @@ namespace AKATSUKIYA.AvatarSwitcher.Editor
             var contentHeight = Mathf.Max(
                 (EditorGUIUtility.singleLineHeight * avatarEntries.Count) + InitialWindowPaddingY,
                 MinimumInitialWindowHeight);
+            contentHeight = Mathf.Min(contentHeight, MaximumInitialWindowHeight);
             return new Vector2(contentWidth, contentHeight);
         }
 
