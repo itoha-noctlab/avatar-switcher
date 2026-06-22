@@ -42,6 +42,8 @@
   - `Shift`+click enables range selection.
   - Depending on the highlight setting, the selected avatar is highlighted in the Hierarchy.
   - `Alt`+click inverts the highlight behavior.
+  - If an avatar's parent GameObject is disabled, the avatar is shown as unselected in the list.
+  - When an avatar is activated, any disabled parent GameObjects up to the root are also enabled.
   - When an avatar is activated, it is shown again if it was hidden by Scene Visibility.
 
 - Right-click anywhere in the window to open the settings menu.

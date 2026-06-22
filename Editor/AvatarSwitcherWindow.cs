@@ -341,7 +341,7 @@ namespace AKATSUKIYA.AvatarSwitcher.Editor
                     return;
                 }
 
-                var activatesTarget = !target.activeSelf;
+                var activatesTarget = !IsAvatarActive(target);
                 if (selectRange && TryActivateAvatarRange(target, pingWhenActivated))
                 {
                     if (activatesTarget)
@@ -351,7 +351,7 @@ namespace AKATSUKIYA.AvatarSwitcher.Editor
                     return;
                 }
 
-                if (target.activeSelf)
+                if (IsAvatarActive(target))
                 {
                     if (!allowMultiple && CountActiveAvatars() > 1)
                     {
@@ -377,7 +377,7 @@ namespace AKATSUKIYA.AvatarSwitcher.Editor
 
         private bool TryActivateAvatarRange(GameObject target, bool pingWhenActivated)
         {
-            if (lastRangeSelectionAnchor == null || !lastRangeSelectionAnchor.activeSelf || !HasActiveAvatar())
+            if (lastRangeSelectionAnchor == null || !IsAvatarActive(lastRangeSelectionAnchor) || !HasActiveAvatar())
             {
                 return false;
             }
@@ -389,7 +389,7 @@ namespace AKATSUKIYA.AvatarSwitcher.Editor
                 return false;
             }
 
-            var activatesTarget = !target.activeSelf;
+            var activatesTarget = !IsAvatarActive(target);
             var firstIndex = Mathf.Min(anchorIndex, targetIndex);
             var lastIndex = Mathf.Max(anchorIndex, targetIndex);
             var changedObjects = new List<GameObject>();
@@ -404,9 +404,9 @@ namespace AKATSUKIYA.AvatarSwitcher.Editor
                 }
 
                 rangeObjects.Add(gameObject);
-                if (!gameObject.activeSelf)
+                if (!IsAvatarActive(gameObject))
                 {
-                    changedObjects.Add(gameObject);
+                    AddActivationChainChanges(gameObject, changedObjects);
                 }
             }
 
@@ -436,7 +436,7 @@ namespace AKATSUKIYA.AvatarSwitcher.Editor
         {
             foreach (var avatar in avatars)
             {
-                if (avatar.GameObject != null && avatar.GameObject.activeSelf)
+                if (IsAvatarActive(avatar.GameObject))
                 {
                     return true;
                 }
@@ -450,7 +450,7 @@ namespace AKATSUKIYA.AvatarSwitcher.Editor
             var activeCount = 0;
             foreach (var avatar in avatars)
             {
-                if (avatar.GameObject != null && avatar.GameObject.activeSelf)
+                if (IsAvatarActive(avatar.GameObject))
                 {
                     activeCount++;
                 }
@@ -479,22 +479,31 @@ namespace AKATSUKIYA.AvatarSwitcher.Editor
                 return;
             }
 
-            var changedObjects = new List<GameObject>();
+            var deactivationObjects = new List<GameObject>();
             if (!allowMultiple)
             {
                 foreach (var avatar in avatars)
                 {
-                    if (avatar.GameObject == null || avatar.GameObject == target || !avatar.GameObject.activeSelf)
+                    if (avatar.GameObject == null || avatar.GameObject == target || !IsAvatarActive(avatar.GameObject))
                     {
                         continue;
                     }
-                    changedObjects.Add(avatar.GameObject);
+                    AddIfMissing(deactivationObjects, avatar.GameObject);
                 }
             }
 
-            if (!target.activeSelf)
+            var activationObjects = new List<GameObject>();
+            AddActivationChainChanges(target, activationObjects);
+
+            var changedObjects = new List<GameObject>();
+            foreach (var deactivationObject in deactivationObjects)
             {
-                changedObjects.Add(target);
+                AddIfMissing(changedObjects, deactivationObject);
+            }
+
+            foreach (var activationObject in activationObjects)
+            {
+                AddIfMissing(changedObjects, activationObject);
             }
 
             if (changedObjects.Count == 0)
@@ -506,19 +515,60 @@ namespace AKATSUKIYA.AvatarSwitcher.Editor
 
             if (!allowMultiple)
             {
-                foreach (var avatar in avatars)
+                foreach (var deactivationObject in deactivationObjects)
                 {
-                    if (avatar.GameObject != null && avatar.GameObject != target && avatar.GameObject.activeSelf)
+                    if (deactivationObject != null)
                     {
-                        avatar.GameObject.SetActive(false);
+                        deactivationObject.SetActive(false);
                     }
                 }
             }
 
-            target.SetActive(true);
-            ShowInSceneVisibility(new[] { target });
+            foreach (var activationObject in activationObjects)
+            {
+                if (activationObject != null && !activationObject.activeSelf)
+                {
+                    activationObject.SetActive(true);
+                }
+            }
+
+            ShowInSceneVisibility(GetSelfAndParents(target));
             MarkDirtyScenes(changedObjects);
             RefreshImmediately();
+        }
+
+        private static bool IsAvatarActive(GameObject gameObject)
+        {
+            return gameObject != null && gameObject.activeInHierarchy;
+        }
+
+        private static IEnumerable<GameObject> GetSelfAndParents(GameObject gameObject)
+        {
+            var current = gameObject == null ? null : gameObject.transform;
+            while (current != null)
+            {
+                yield return current.gameObject;
+                current = current.parent;
+            }
+        }
+
+        private static void AddActivationChainChanges(GameObject gameObject, List<GameObject> changedObjects)
+        {
+            foreach (var activationTarget in GetSelfAndParents(gameObject))
+            {
+                if (activationTarget != null && !activationTarget.activeSelf)
+                {
+                    AddIfMissing(changedObjects, activationTarget);
+                }
+            }
+        }
+
+        private static void AddIfMissing(List<GameObject> gameObjects, GameObject gameObject)
+        {
+            if (gameObject != null && !gameObjects.Contains(gameObject))
+            {
+                gameObjects.Add(gameObject);
+            }
         }
 
         private static void ShowInSceneVisibility(IEnumerable<GameObject> gameObjects)
@@ -736,7 +786,7 @@ namespace AKATSUKIYA.AvatarSwitcher.Editor
 
             public string ObjectName => GameObject == null ? string.Empty : GameObject.name;
 
-            public bool IsActive => GameObject != null && GameObject.activeSelf;
+            public bool IsActive => IsAvatarActive(GameObject);
 
             public void SetCommonParentSegmentCount(int commonParentSegmentCount)
             {
