@@ -1,5 +1,7 @@
 # Avatar Switcher
 
+![avatar-switcher](https://raw.githubusercontent.com/itoha-noctlab/avatar-switcher/refs/heads/master/img/image.png)
+
 ## 【Overview】
 
 - A Unity Editor extension that detects VRChat avatars in the Hierarchy, lists them, and switches `IsActive`.

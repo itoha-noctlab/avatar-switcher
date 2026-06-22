@@ -1,5 +1,7 @@
 # Avatar Switcher
 
+![avatar-switcher](https://raw.githubusercontent.com/itoha-noctlab/avatar-switcher/refs/heads/master/img/image.png)
+
 ## 【概要】
 
 - 一个 Unity Editor 扩展，用于检测 Hierarchy 中的 VRChat 头像，列出后切换 `IsActive`。
