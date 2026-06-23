@@ -146,13 +146,19 @@ namespace AKATSUKIYA.AvatarSwitcher.Editor
 #if UNITY_EDITOR_WIN
             if (TryGetMouseCursorScreenPosition(out var cursorPosition))
             {
-                return cursorPosition;
+                return ScaleToEditorPoints(cursorPosition);
             }
 #else
-            return new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
+            return ScaleToEditorPoints(new Vector2(Screen.width * 0.5f, Screen.height * 0.5f));
 #endif
 
-            return new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
+            return ScaleToEditorPoints(new Vector2(Screen.width * 0.5f, Screen.height * 0.5f));
+        }
+
+        private static Vector2 ScaleToEditorPoints(Vector2 screenPosition)
+        {
+            var pixelsPerPoint = Mathf.Max(1f, EditorGUIUtility.pixelsPerPoint);
+            return screenPosition / pixelsPerPoint;
         }
 
 #if UNITY_EDITOR_WIN
