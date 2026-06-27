@@ -62,6 +62,14 @@
 
 - 이 패키지는 MIT License로 제공됩니다. 자세한 내용은 [LICENSE](https://github.com/itoha-noctlab/avatar-switcher/blob/master/LICENSE.txt)를 참조하세요.
 
+## 【설치 방법】
+
+- BOOTH에서 `.unitypackage` 파일을 다운로드한 뒤 Unity 프로젝트에 임포트하세요. VPMPackageAutoInstaller에 의해 VPM 패키지로 프로젝트에 추가됩니다.
+
+## 【삭제 방법】
+
+- VCC를 열고, "Manage Project"의 패키지 목록에서 AvatarSwitcher의 uninstall 버튼을 클릭하세요.
+
 ## 【문의】
 
 - 문제가 있으면 BOOTH 메시지 또는 https://noctlab.com/contact?t=tool&tool=Avatar+Switcher 로 문의해 주세요.

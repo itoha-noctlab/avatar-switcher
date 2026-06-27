@@ -57,6 +57,14 @@
 - Hierarchy 上の GameObject 行の左端アイコン部分をクリックして、その GameObject のアクティブ状態を切り替えます。
   - Hierarchy で複数選択中のオブジェクトをクリックした場合、選択中のすべての GameObject のアクティブ状態を切り替えます。
 
+## 【インストール方法】
+
+- BOOTH から .unitypackage ファイルをダウンロードし、 Unity のプロジェクトにインポートしてください。VPMPackageAutoInstaller により VPMパッケージとしてプロジェクトに追加されます。
+
+## 【アンインストール方法】
+
+- VCC を開き、「Manage Project」のパッケージ一覧から AvatarSwitcher のアンインストールボタンをクリックしてください。
+
 ## 【ライセンス】
 
 - このパッケージは MIT License で提供されます。詳細は [LICENSE](https://github.com/itoha-noctlab/avatar-switcher/blob/master/LICENSE.txt) を参照してください。
